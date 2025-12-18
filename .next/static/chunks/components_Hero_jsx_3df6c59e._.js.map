@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/harsh/OneDrive/Documents/Project%20Code%20%28Web%29/gocart-main/components/Hero.jsx"],"sourcesContent":["'use client'\n\nexport default function Hero() {\n  return (\n    <section className=\"max-w-7xl mx-auto px-6 py-20\">\n      <div className=\"bg-green-200 rounded-3xl p-12\">\n        <p className=\"text-green-700 mb-2\">Free Shipping above $50</p>\n        <h1 className=\"text-5xl font-semibold max-w-xl\">\n          Gadgets you'll love. Prices you'll trust.\n        </h1>\n        <button className=\"mt-6 px-8 py-3 bg-black text-white rounded-md\">\n          Shop Now\n        </button>\n      </div>\n    </section>\n  )\n}\n"],"names":[],"mappings":";;;;AAAA;;AAEe,SAAS;IACtB,qBACE,6LAAC;QAAQ,WAAU;kBACjB,cAAA,6LAAC;YAAI,WAAU;;8BACb,6LAAC;oBAAE,WAAU;8BAAsB;;;;;;8BACnC,6LAAC;oBAAG,WAAU;8BAAkC;;;;;;8BAGhD,6LAAC;oBAAO,WAAU;8BAAgD;;;;;;;;;;;;;;;;;AAM1E;KAdwB","debugId":null}}]
+}

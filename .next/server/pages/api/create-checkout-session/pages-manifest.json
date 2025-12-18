@@ -1,0 +1,3 @@
+{
+  "/api/create-checkout-session": "pages/api/create-checkout-session.js"
+}

@@ -1,0 +1,82 @@
+{
+  "node": {
+    "7f29a623e2e1a47fdbc105fb7d824feb2c73b1a6ab": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "rsc"
+      }
+    },
+    "7fa4e13cdace5c3dbbc6ce86a999a5072dd1b95167": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "rsc"
+      }
+    },
+    "7f3873fd9e3388e618ea8a6699e97d1fc12d96be72": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "action-browser"
+      }
+    },
+    "7f54dd023568a40cdd8f7d704cb85dbf9e6f55b5e1": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "action-browser"
+      }
+    },
+    "7f7d54f8f7e516fb9fa9d5c40b0c6210a7012d7b20": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "action-browser"
+      }
+    },
+    "7ffcf75550e77d3ea1541b707ab433321a1788262e": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "action-browser"
+      }
+    },
+    "7f72927bbf2caaab4889c2b58883a2c6fa31bbdc9d": {
+      "workers": {
+        "app/(public)/product/[productId]/page": {
+          "moduleId": "[project]/.next-internal/server/app/(public)/product/[productId]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/@clerk/nextjs/dist/esm/server/keyless-custom-headers.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(public)/product/[productId]/page": "action-browser"
+      }
+    }
+  },
+  "edge": {}
+}

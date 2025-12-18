@@ -1,0 +1,5 @@
+{
+  "/api/address": "pages/api/address.js",
+  "/api/create-checkout-session": "pages/api/create-checkout-session.js",
+  "/api/orders": "pages/api/orders.js"
+}
