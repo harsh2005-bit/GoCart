@@ -1,3 +1,0 @@
-{
-  "/(public)/product/[productId]/page": "app/(public)/product/[productId]/page.js"
-}
