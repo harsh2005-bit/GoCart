@@ -5,70 +5,75 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addAddress } from "@/lib/features/address/addressSlice";
+import { useUser } from "@clerk/nextjs";
 
 const AddressModal = ({ setShowAddressModal }) => {
   const dispatch = useDispatch();
+  const { user } = useUser();
 
   const [address, setAddress] = useState({
-    fullName: "",
-    phone: "",
-    addressLine: "",
+    name: "",
+    email: "",
+    street: "",
     city: "",
     state: "",
-    pincode: "",
+    zip: "",
     country: "",
+    phone: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = e =>
     setAddress({ ...address, [e.target.name]: e.target.value });
-  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const res = await fetch("/api/address", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(address),
+      body: JSON.stringify({
+        ...address,
+        userId: user?.id || null,
+      }),
     });
 
-    if (!res.ok) throw new Error("Save failed");
+    if (!res.ok) throw new Error("Failed");
 
-    const data = await res.json();
-    dispatch(addAddress(data.address));
+    const saved = await res.json();
+    dispatch(addAddress(saved));
     setShowAddressModal(false);
   };
 
   return (
     <form
-      onSubmit={(e) =>
+      onSubmit={e =>
         toast.promise(handleSubmit(e), {
           loading: "Saving address...",
-          success: "Address saved successfully ✅",
-          error: "Failed to save address",
+          success: "Address saved",
+          error: "Failed to save",
         })
       }
-      className="fixed inset-0 z-50 bg-black/40 backdrop-blur flex items-center justify-center"
+      className="fixed inset-0 z-50 bg-white/60 backdrop-blur flex items-center justify-center"
     >
-      <div className="bg-white p-6 rounded-lg w-full max-w-sm space-y-3">
-        <h2 className="text-xl font-semibold">Add Address</h2>
-
-        <input name="fullName" placeholder="Full Name" onChange={handleChange} required className="border p-2 w-full rounded" />
-        <input name="phone" placeholder="Phone" onChange={handleChange} required className="border p-2 w-full rounded" />
-        <input name="addressLine" placeholder="Address Line" onChange={handleChange} required className="border p-2 w-full rounded" />
-        <input name="city" placeholder="City" onChange={handleChange} required className="border p-2 w-full rounded" />
-        <input name="state" placeholder="State" onChange={handleChange} className="border p-2 w-full rounded" />
-        <input name="pincode" placeholder="Pincode" onChange={handleChange} className="border p-2 w-full rounded" />
-        <input name="country" placeholder="Country" onChange={handleChange} className="border p-2 w-full rounded" />
-
+      <div className="w-full max-w-sm bg-white p-6 rounded space-y-3">
+        {Object.keys(address).map(key => (
+          <input
+            key={key}
+            name={key}
+            value={address[key]}
+            onChange={handleChange}
+            placeholder={key}
+            className="w-full border p-2 rounded"
+            required
+          />
+        ))}
         <button className="w-full bg-slate-800 text-white py-2 rounded">
           Save Address
         </button>
       </div>
 
       <XIcon
-        size={28}
-        className="absolute top-5 right-5 text-white cursor-pointer"
+        className="absolute top-5 right-5 cursor-pointer"
         onClick={() => setShowAddressModal(false)}
       />
     </form>
