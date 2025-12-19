@@ -27,17 +27,15 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongodb [external] (mongodb, cjs)");
 ;
 const uri = process.env.MONGODB_URI;
-if (!uri) {
-    throw new Error("❌ MONGODB_URI is missing in .env.local");
-}
+if (!uri) throw new Error("MONGODB_URI missing");
 let client;
 let clientPromise;
 if ("TURBOPACK compile-time truthy", 1) {
-    if (!global._mongoClient) {
+    if (!global._mongoClientPromise) {
         client = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$29$__["MongoClient"](uri);
-        global._mongoClient = client.connect();
+        global._mongoClientPromise = client.connect();
     }
-    clientPromise = global._mongoClient;
+    clientPromise = global._mongoClientPromise;
 } else {
     "TURBOPACK unreachable";
 }
@@ -56,50 +54,43 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$js__$5b$ap
 async function handler(req, res) {
     try {
         const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"];
-        const db = client.db(process.env.MONGODB_DB || "gocart");
-        /* ---------- SAVE ADDRESS ---------- */ if (req.method === "POST") {
-            const { fullName, phone, addressLine, city, state, pincode, country } = req.body;
-            if (!fullName || !phone || !addressLine || !city) {
+        const db = client.db(process.env.MONGODB_DB);
+        if (req.method === "POST") {
+            const { name, email, street, city, state, zip, country, phone, userId } = req.body;
+            if (!name || !street || !city) {
                 return res.status(400).json({
-                    error: "Invalid address data"
+                    error: "Invalid address"
                 });
             }
             const address = {
-                fullName,
-                phone,
-                addressLine,
+                name,
+                email,
+                street,
                 city,
                 state,
-                pincode,
+                zip,
                 country,
+                phone,
+                userId,
                 createdAt: new Date()
             };
             const result = await db.collection("addresses").insertOne(address);
             return res.status(201).json({
-                message: "Address saved successfully",
-                address: {
-                    ...address,
-                    _id: result.insertedId.toString()
-                }
+                ...address,
+                _id: result.insertedId.toString()
             });
         }
-        /* ---------- GET ADDRESSES ---------- */ if (req.method === "GET") {
-            const addresses = await db.collection("addresses").find().sort({
-                createdAt: -1
-            }).toArray();
+        if (req.method === "GET") {
+            const addresses = await db.collection("addresses").find().toArray();
             return res.status(200).json(addresses.map((a)=>({
                     ...a,
                     _id: a._id.toString()
                 })));
         }
-        res.setHeader("Allow", [
-            "GET",
-            "POST"
-        ]);
-        return res.status(405).end();
+        res.status(405).end();
     } catch (err) {
-        console.error("❌ Address API error:", err);
-        return res.status(500).json({
+        console.error("Address API error:", err);
+        res.status(500).json({
             error: "Server error"
         });
     }

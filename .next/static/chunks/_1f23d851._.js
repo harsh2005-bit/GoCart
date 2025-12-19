@@ -96,6 +96,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$features$2f$address$2f$addressSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/features/address/addressSlice.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$react$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@clerk/shared/dist/runtime/react/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -104,24 +105,25 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 const AddressModal = ({ setShowAddressModal })=>{
     _s();
     const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+    const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$react$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"])();
     const [address, setAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        fullName: "",
-        phone: "",
-        addressLine: "",
+        name: "",
+        email: "",
+        street: "",
         city: "",
         state: "",
-        pincode: "",
-        country: ""
+        zip: "",
+        country: "",
+        phone: ""
     });
-    const handleChange = (e)=>{
-        setAddress({
+    const handleChange = (e)=>setAddress({
             ...address,
             [e.target.name]: e.target.value
         });
-    };
     const handleSubmit = async (e)=>{
         e.preventDefault();
         const res = await fetch("/api/address", {
@@ -129,139 +131,72 @@ const AddressModal = ({ setShowAddressModal })=>{
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(address)
+            body: JSON.stringify({
+                ...address,
+                userId: user?.id || null
+            })
         });
-        if (!res.ok) throw new Error("Save failed");
-        const data = await res.json();
-        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$features$2f$address$2f$addressSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addAddress"])(data.address));
+        if (!res.ok) throw new Error("Failed");
+        const saved = await res.json();
+        dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$features$2f$address$2f$addressSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addAddress"])(saved));
         setShowAddressModal(false);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
         onSubmit: (e)=>__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].promise(handleSubmit(e), {
                 loading: "Saving address...",
-                success: "Address saved successfully ✅",
-                error: "Failed to save address"
+                success: "Address saved",
+                error: "Failed to save"
             }),
-        className: "fixed inset-0 z-50 bg-black/40 backdrop-blur flex items-center justify-center",
+        className: "fixed inset-0 z-50 bg-white/60 backdrop-blur flex items-center justify-center",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white p-6 rounded-lg w-full max-w-sm space-y-3",
+                className: "w-full max-w-sm bg-white p-6 rounded space-y-3",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl font-semibold",
-                        children: "Add Address"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 54,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "fullName",
-                        placeholder: "Full Name",
-                        onChange: handleChange,
-                        required: true,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 56,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "phone",
-                        placeholder: "Phone",
-                        onChange: handleChange,
-                        required: true,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 57,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "addressLine",
-                        placeholder: "Address Line",
-                        onChange: handleChange,
-                        required: true,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 58,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "city",
-                        placeholder: "City",
-                        onChange: handleChange,
-                        required: true,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 59,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "state",
-                        placeholder: "State",
-                        onChange: handleChange,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 60,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "pincode",
-                        placeholder: "Pincode",
-                        onChange: handleChange,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 61,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                        name: "country",
-                        placeholder: "Country",
-                        onChange: handleChange,
-                        className: "border p-2 w-full rounded"
-                    }, void 0, false, {
-                        fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 62,
-                        columnNumber: 9
-                    }, this),
+                    Object.keys(address).map((key)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            name: key,
+                            value: address[key],
+                            onChange: handleChange,
+                            placeholder: key,
+                            className: "w-full border p-2 rounded",
+                            required: true
+                        }, key, false, {
+                            fileName: "[project]/components/AddressModal.jsx",
+                            lineNumber: 60,
+                            columnNumber: 11
+                        }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         className: "w-full bg-slate-800 text-white py-2 rounded",
                         children: "Save Address"
                     }, void 0, false, {
                         fileName: "[project]/components/AddressModal.jsx",
-                        lineNumber: 64,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/AddressModal.jsx",
-                lineNumber: 53,
+                lineNumber: 58,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__XIcon$3e$__["XIcon"], {
-                size: 28,
-                className: "absolute top-5 right-5 text-white cursor-pointer",
+                className: "absolute top-5 right-5 cursor-pointer",
                 onClick: ()=>setShowAddressModal(false)
             }, void 0, false, {
                 fileName: "[project]/components/AddressModal.jsx",
-                lineNumber: 69,
+                lineNumber: 75,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/AddressModal.jsx",
-        lineNumber: 43,
+        lineNumber: 48,
         columnNumber: 5
     }, this);
 };
-_s(AddressModal, "xAnq8hHthDW8xRAn9Bz934exMYs=", false, function() {
+_s(AddressModal, "L2cZ8ataL1YMOcvssoQkH9+4RV4=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$react$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"]
     ];
 });
 _c = AddressModal;
@@ -289,9 +224,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AddressModal$2
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$features$2f$cart$2f$cartSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/features/cart/cartSlice.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -302,8 +239,9 @@ const OrderSummary = ({ totalPrice, items })=>{
     _s();
     const currency = ("TURBOPACK compile-time value", "$") || '$';
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
     const addressList = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
-        "OrderSummary.useSelector[addressList]": (state)=>state.address.list
+        "OrderSummary.useSelector[addressList]": (state)=>state.address.list || []
     }["OrderSummary.useSelector[addressList]"]);
     const [paymentMethod, setPaymentMethod] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('COD');
     const [selectedAddress, setSelectedAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -313,48 +251,79 @@ const OrderSummary = ({ totalPrice, items })=>{
     const handleCouponCode = async (e)=>{
         e.preventDefault();
     };
-    const handlePlaceOrder = async (e)=>{
+    /* =========================
+     PLACE ORDER (FIXED)
+  ========================== */ const handlePlaceOrder = async (e)=>{
         e.preventDefault();
         if (!selectedAddress) {
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error('Please select an address');
             return;
         }
-        /* ---------- STRIPE PAYMENT ---------- */ if (paymentMethod === 'STRIPE') {
-            const successUrl = `${window.location.origin}/orders?success=1`;
-            const cancelUrl = window.location.href;
-            const res = await fetch('/api/create-checkout-session', {
+        try {
+            /* ---------- STRIPE FLOW ---------- */ if (paymentMethod === 'STRIPE') {
+                if (totalPrice < 0.50) {
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error('Minimum order amount for Stripe is $0.50');
+                    return;
+                }
+                const res = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: items.map((item)=>({
+                                name: item.name,
+                                price: Number(item.price),
+                                quantity: item.quantity || 1,
+                                image: item.images?.[0]?.src ? `${window.location.origin}${item.images[0].src}` : item.images?.[0] || ''
+                            })),
+                        successUrl: `${window.location.origin}/orders?success=1`,
+                        cancelUrl: `${window.location.origin}/cart`
+                    })
+                });
+                // 🚨 Important: Stripe route must return JSON
+                const text = await res.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch  {
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Stripe API returned invalid response');
+                }
+                if (!res.ok || !data.url) {
+                    console.error('Stripe error:', data);
+                    throw new Error(data.error || 'Stripe session creation failed');
+                }
+                // Store order data for saving after successful payment
+                localStorage.setItem('pendingOrder', JSON.stringify({
+                    items,
+                    total: totalPrice,
+                    address: selectedAddress,
+                    paymentMethod: 'STRIPE'
+                }));
+                window.location.href = data.url;
+                return;
+            }
+            /* ---------- COD FLOW ---------- */ const res = await fetch('/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     items,
-                    successUrl,
-                    cancelUrl
+                    total: totalPrice,
+                    address: selectedAddress,
+                    paymentMethod: 'COD'
                 })
             });
-            if (!res.ok) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error('Stripe checkout failed');
-                return;
-            }
-            const data = await res.json();
-            window.location.href = data.url;
-            return;
+            if (!res.ok) throw new Error('COD order failed');
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success('Order placed successfully');
+            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$features$2f$cart$2f$cartSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["clearCart"])());
+            router.push('/orders');
+        } catch (err) {
+            console.error(err);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error(err.message || 'Order failed');
         }
-        /* ---------- COD ORDER ---------- */ await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                items,
-                total: totalPrice,
-                address: selectedAddress,
-                paymentMethod: 'COD'
-            })
-        });
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success('Order placed successfully');
-        router.push('/orders');
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "w-full max-w-lg lg:max-w-[340px] bg-slate-50/30 border border-slate-200 text-slate-500 text-sm rounded-xl p-7",
@@ -364,7 +333,7 @@ const OrderSummary = ({ totalPrice, items })=>{
                 children: "Payment Summary"
             }, void 0, false, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 77,
+                lineNumber: 115,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -372,7 +341,7 @@ const OrderSummary = ({ totalPrice, items })=>{
                 children: "Payment Method"
             }, void 0, false, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 79,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -382,10 +351,11 @@ const OrderSummary = ({ totalPrice, items })=>{
                         type: "radio",
                         id: "COD",
                         checked: paymentMethod === 'COD',
-                        onChange: ()=>setPaymentMethod('COD')
+                        onChange: ()=>setPaymentMethod('COD'),
+                        className: "accent-gray-500"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 82,
+                        lineNumber: 120,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -393,13 +363,13 @@ const OrderSummary = ({ totalPrice, items })=>{
                         children: "COD"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 88,
+                        lineNumber: 127,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 81,
+                lineNumber: 119,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -409,10 +379,11 @@ const OrderSummary = ({ totalPrice, items })=>{
                         type: "radio",
                         id: "STRIPE",
                         checked: paymentMethod === 'STRIPE',
-                        onChange: ()=>setPaymentMethod('STRIPE')
+                        onChange: ()=>setPaymentMethod('STRIPE'),
+                        className: "accent-gray-500"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 92,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -420,23 +391,23 @@ const OrderSummary = ({ totalPrice, items })=>{
                         children: "Stripe Payment"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 98,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 91,
+                lineNumber: 130,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "my-4 py-4 border-y border-slate-200",
+                className: "my-4 py-4 border-y border-slate-200 text-slate-400",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: "Address"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 102,
+                        lineNumber: 143,
                         columnNumber: 9
                     }, this),
                     selectedAddress ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -455,7 +426,7 @@ const OrderSummary = ({ totalPrice, items })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/OrderSummary.jsx",
-                                lineNumber: 106,
+                                lineNumber: 147,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__SquarePenIcon$3e$__["SquarePenIcon"], {
@@ -464,18 +435,18 @@ const OrderSummary = ({ totalPrice, items })=>{
                                 onClick: ()=>setSelectedAddress(null)
                             }, void 0, false, {
                                 fileName: "[project]/components/OrderSummary.jsx",
-                                lineNumber: 110,
+                                lineNumber: 151,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 105,
+                        lineNumber: 146,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             addressList.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                className: "border p-2 w-full my-3 rounded",
+                                className: "border border-slate-400 p-2 w-full my-3 rounded",
                                 onChange: (e)=>setSelectedAddress(addressList[e.target.value]),
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -483,55 +454,59 @@ const OrderSummary = ({ totalPrice, items })=>{
                                         children: "Select Address"
                                     }, void 0, false, {
                                         fileName: "[project]/components/OrderSummary.jsx",
-                                        lineNumber: 125,
+                                        lineNumber: 166,
                                         columnNumber: 17
                                     }, this),
-                                    addressList.map((address, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                            value: index,
+                                    addressList.map((a, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                            value: i,
                                             children: [
-                                                address.name,
+                                                a.name,
                                                 ", ",
-                                                address.city
+                                                a.city,
+                                                ", ",
+                                                a.state,
+                                                ", ",
+                                                a.zip
                                             ]
-                                        }, index, true, {
+                                        }, i, true, {
                                             fileName: "[project]/components/OrderSummary.jsx",
-                                            lineNumber: 127,
+                                            lineNumber: 168,
                                             columnNumber: 19
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/OrderSummary.jsx",
-                                lineNumber: 119,
+                                lineNumber: 160,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                className: "flex items-center gap-1 text-slate-600 mt-1",
                                 onClick: ()=>setShowAddressModal(true),
-                                className: "flex items-center gap-1 mt-1",
                                 children: [
                                     "Add Address ",
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PlusIcon$3e$__["PlusIcon"], {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/components/OrderSummary.jsx",
-                                        lineNumber: 138,
+                                        lineNumber: 179,
                                         columnNumber: 27
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/OrderSummary.jsx",
-                                lineNumber: 134,
+                                lineNumber: 175,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 117,
+                        lineNumber: 158,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 101,
+                lineNumber: 142,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -541,7 +516,7 @@ const OrderSummary = ({ totalPrice, items })=>{
                         children: "Total:"
                     }, void 0, false, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 145,
+                        lineNumber: 187,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -552,13 +527,13 @@ const OrderSummary = ({ totalPrice, items })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/OrderSummary.jsx",
-                        lineNumber: 146,
+                        lineNumber: 188,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 144,
+                lineNumber: 186,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -569,26 +544,27 @@ const OrderSummary = ({ totalPrice, items })=>{
                 children: "Place Order"
             }, void 0, false, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 154,
+                lineNumber: 196,
                 columnNumber: 7
             }, this),
             showAddressModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AddressModal$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 setShowAddressModal: setShowAddressModal
             }, void 0, false, {
                 fileName: "[project]/components/OrderSummary.jsx",
-                lineNumber: 166,
+                lineNumber: 208,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/OrderSummary.jsx",
-        lineNumber: 76,
+        lineNumber: 114,
         columnNumber: 5
     }, this);
 };
-_s(OrderSummary, "R351J3MQ49nldhXzyqZxJoH/QC4=", false, function() {
+_s(OrderSummary, "edhheRtrgdPvgid41XIqCzft3x4=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
     ];
 });
@@ -824,7 +800,7 @@ function Cart() {
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "flex gap-3 items-center justify-center bg-slate-100 size-18 rounded-md",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                src: item.images[0],
+                                                                src: item.images[0]?.src || item.images[0],
                                                                 className: "h-14 w-auto",
                                                                 alt: "",
                                                                 width: 45,

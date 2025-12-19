@@ -115,7 +115,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-__turbopack_context__.v("/_next/static/media/upload_area.941d5573.svg");}}),
+__turbopack_context__.v("/_next/static/media/upload_area.b1be7bb1.svg");}}),
 "[project]/assets/upload_area.svg.mjs { IMAGE => \"[project]/assets/upload_area.svg (static in ecmascript)\" } [app-client] (structured image object, ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -1397,26 +1397,26 @@ var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_
 {
 __turbopack_context__.s({
     "addAddress": (()=>addAddress),
-    "default": (()=>__TURBOPACK__default__export__)
+    "default": (()=>__TURBOPACK__default__export__),
+    "setAddressList": (()=>setAddressList)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$assets$2f$assets$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/assets/assets.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 ;
-;
 const addressSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
-    name: 'address',
+    name: "address",
     initialState: {
-        list: [
-            __TURBOPACK__imported__module__$5b$project$5d2f$assets$2f$assets$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addressDummyData"]
-        ]
+        list: []
     },
     reducers: {
         addAddress: (state, action)=>{
             state.list.push(action.payload);
+        },
+        setAddressList: (state, action)=>{
+            state.list = action.payload;
         }
     }
 });
-const { addAddress } = addressSlice.actions;
+const { addAddress, setAddressList } = addressSlice.actions;
 const __TURBOPACK__default__export__ = addressSlice.reducer;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);

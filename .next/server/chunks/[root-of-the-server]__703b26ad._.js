@@ -27,17 +27,15 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongodb [external] (mongodb, cjs)");
 ;
 const uri = process.env.MONGODB_URI;
-if (!uri) {
-    throw new Error("❌ MONGODB_URI is missing in .env.local");
-}
+if (!uri) throw new Error("MONGODB_URI missing");
 let client;
 let clientPromise;
 if ("TURBOPACK compile-time truthy", 1) {
-    if (!global._mongoClient) {
+    if (!global._mongoClientPromise) {
         client = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongodb__$5b$external$5d$__$28$mongodb$2c$__cjs$29$__["MongoClient"](uri);
-        global._mongoClient = client.connect();
+        global._mongoClientPromise = client.connect();
     }
-    clientPromise = global._mongoClient;
+    clientPromise = global._mongoClientPromise;
 } else {
     "TURBOPACK unreachable";
 }
@@ -54,56 +52,25 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/mongodb.js [api] (ecmascript)");
 ;
 async function handler(req, res) {
-    try {
-        const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"];
-        const db = client.db(process.env.MONGODB_DB || "gocart");
-        /* ================= CREATE ORDER ================= */ if (req.method === "POST") {
-            const { items, total, address, paymentMethod } = req.body;
-            if (!items || !Array.isArray(items) || items.length === 0) {
-                return res.status(400).json({
-                    error: "Items are required"
-                });
-            }
-            if (!address) {
-                return res.status(400).json({
-                    error: "Address is required"
-                });
-            }
-            const order = {
-                items,
-                total,
-                address,
-                paymentMethod: paymentMethod || "COD",
-                status: "PLACED",
-                createdAt: new Date()
-            };
-            const result = await db.collection("orders").insertOne(order);
-            return res.status(201).json({
-                message: "Order placed successfully",
-                orderId: result.insertedId.toString()
-            });
-        }
-        /* ================= FETCH ORDERS ================= */ if (req.method === "GET") {
-            const orders = await db.collection("orders").find().sort({
-                createdAt: -1
-            }).toArray();
-            return res.status(200).json(orders.map((order)=>({
-                    ...order,
-                    _id: order._id.toString()
-                })));
-        }
-        /* ================= METHOD NOT ALLOWED ================= */ res.setHeader("Allow", [
-            "GET",
-            "POST"
-        ]);
-        return res.status(405).json({
-            error: `Method ${req.method} Not Allowed`
+    const client = await __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$mongodb$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"];
+    const db = client.db(process.env.MONGODB_DB);
+    if (req.method === "POST") {
+        const order = {
+            ...req.body,
+            status: "PLACED",
+            createdAt: new Date()
+        };
+        await db.collection("orders").insertOne(order);
+        return res.status(201).json({
+            success: true
         });
-    } catch (error) {
-        console.error("❌ Orders API error:", error);
-        return res.status(500).json({
-            error: "Internal server error"
-        });
+    }
+    if (req.method === "GET") {
+        const orders = await db.collection("orders").find().toArray();
+        return res.json(orders.map((o)=>({
+                ...o,
+                _id: o._id.toString()
+            })));
     }
 }
 }}),

@@ -34,7 +34,7 @@ const ProductCard = ({ product })=>{
                     width: 500,
                     height: 500,
                     className: "max-h-30 sm:max-h-40 w-auto group-hover:scale-115 transition duration-300",
-                    src: product.images[0],
+                    src: product.images[0]?.src || product.images[0],
                     alt: ""
                 }, void 0, false, {
                     fileName: "[project]/components/ProductCard.jsx",

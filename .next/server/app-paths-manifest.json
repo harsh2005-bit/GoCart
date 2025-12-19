@@ -5,5 +5,6 @@
   "/(public)/product/[productId]/page": "app/(public)/product/[productId]/page.js",
   "/(public)/shop/page": "app/(public)/shop/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/api/create-checkout-session/route": "app/api/create-checkout-session/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js"
 }

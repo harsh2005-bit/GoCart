@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import OrderItem from '@/components/OrderItem';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '@/lib/features/cart/cartSlice';
 
-export default function Orders() {
+function OrdersContent() {
   const [orders, setOrders] = useState([]);
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
@@ -59,5 +59,13 @@ export default function Orders() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function Orders() {
+  return (
+    <Suspense fallback={<div>Loading orders...</div>}>
+      <OrdersContent />
+    </Suspense>
   );
 }

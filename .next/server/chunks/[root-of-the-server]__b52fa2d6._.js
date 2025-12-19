@@ -8,63 +8,10 @@ const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages-api-tu
 
 module.exports = mod;
 }}),
-"[project]/pages/api/create-checkout-session.js [api] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
+"[project]/pages/api/create-checkout-session.js [api] (ecmascript)": (function(__turbopack_context__) {
 
-var { g: global, __dirname } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
-__turbopack_context__.s({
-    "default": (()=>handler)
-});
-(()=>{
-    const e = new Error("Cannot find module 'stripe'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
-;
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-async function handler(req, res) {
-    if (req.method !== "POST") {
-        return res.status(405).json({
-            error: "Method not allowed"
-        });
-    }
-    try {
-        const { items, successUrl, cancelUrl } = req.body;
-        if (!items || items.length === 0) {
-            return res.status(400).json({
-                error: "No items provided"
-            });
-        }
-        const line_items = items.map((item)=>({
-                price_data: {
-                    currency: "usd",
-                    product_data: {
-                        name: item.name
-                    },
-                    unit_amount: Math.round(item.price * 100)
-                },
-                quantity: item.quantity || 1
-            }));
-        const session = await stripe.checkout.sessions.create({
-            mode: "payment",
-            payment_method_types: [
-                "card"
-            ],
-            line_items,
-            success_url: successUrl,
-            cancel_url: cancelUrl
-        });
-        return res.status(200).json({
-            url: session.url
-        });
-    } catch (error) {
-        console.error("Stripe error:", error);
-        return res.status(500).json({
-            error: "Stripe checkout failed"
-        });
-    }
-}
 }}),
 "[project]/node_modules/next/dist/esm/server/route-modules/pages-api/module.compiled.js [api] (ecmascript)": (function(__turbopack_context__) {
 
